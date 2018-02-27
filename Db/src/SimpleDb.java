@@ -13,12 +13,12 @@ import java.util.ArrayList;
 
 public class SimpleDb 
 {
-	private static HashMap<String,String> Map1 = new HashMap<>(); // Коллекция для сохранения данных SQL запроса veksha
-	private static HashMap<String,String> Map2 = new HashMap<>(); // Коллекция для сохранения данных SQL запроса Siebel
-	private static ArrayList<Double> res = new ArrayList<>(); // Коллекция для сохранения времени отклика 
-	private static double percentile;  //В эту переменную записываем перцентиль из файла settings
-	private static String sqlSiebel = null;//В эту переменную записываем запрос из файла settings
-	private static String sqlveksha = null;//В эту переменную записываем запрос из файла settings
+	private static HashMap<String,String> Map1 = new HashMap<>(); // collection for save data from veksha
+	private static HashMap<String,String> Map2 = new HashMap<>(); // collection for save data from veksha
+	private static ArrayList<Double> res = new ArrayList<>(); // collection for save sla
+	private static double percentile;  //percentile from file settings
+	private static String sqlSiebel = null;//SQL query from file settings for siebel
+	private static String sqlveksha = null;//SQL query from file settings for veksha 
 	
     public static void main(String[] args) {  
         getSettings("C:\\Users\\Antonio\\Desktop\\settings\\settings.txt");
@@ -28,7 +28,7 @@ public class SimpleDb
         System.out.println("Percentille is " + Percentile(res,percentile));
         
     }
-    //Получаем параметры из указанного файла
+    //settings from file
     public static void getSettings(String context) {
     	 String settingsFileName = context;
          Properties prop = new Properties();
@@ -56,7 +56,7 @@ public class SimpleDb
         	 System.out.println("Can't do this");
          } 
     }
-  //Запрос в зибель
+  //SQL query in veksha siebel
     private static void selectfromSiebel() {//String name
         try {
             Class.forName("org.postgresql.Driver");
@@ -79,7 +79,7 @@ public class SimpleDb
         	 System.out.println("Can't execute SQL query for siebel");
         }
     }
-    //Запрос в векшу
+    //SQL query in veksha
     private static void selecctfromVeksha() {//String name
         try {
             Class.forName("org.postgresql.Driver");
@@ -102,7 +102,7 @@ public class SimpleDb
         	System.out.println("Can't execute SQL query for siebel");
         }
     }
-    //Находим разность по времяни и записываем в коллекцию
+    // find sla and save in collection
     private static ArrayList<Double> masDate(HashMap<String,String> map1,HashMap<String,String> map2){
     	SimpleDateFormat Format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); 
     	  try{
@@ -119,7 +119,7 @@ public class SimpleDb
     	  }
     	return res;//
     }
-//Находим перцентиль
+//find percentile
 	private static double Percentile(ArrayList<Double> res, double percentile){
 			double result = 0;
 		try {
