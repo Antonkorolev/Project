@@ -1,0 +1,3 @@
+sqlSiebel = SELECT * FROM siebeldeal
+sqlveksha = SELECT * FROM veksharq
+percentile = 0.9
